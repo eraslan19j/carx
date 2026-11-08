@@ -17,8 +17,22 @@
       </header>
       <section class="island-card" aria-live="polite">
         <span class="status-dot"></span>
-        <div><b id="scene-status">Ada sahnesi hazırlanıyor</b><small>Prosedürel arazi · yürüyüş yüzeyi hazır</small></div>
+        <div><b id="scene-status">Ada sahnesi hazırlanıyor</b><small id="day-phase">Gün doğumu · 10 dk döngü</small></div>
       </section>
+      <aside class="quality-panel">
+        <button id="quality-trigger" class="quality-trigger" type="button" aria-expanded="false" aria-controls="quality-menu">
+          <span class="settings-glyph" aria-hidden="true">☼</span> Görüntü <b id="quality-summary">Orta</b>
+        </button>
+        <div id="quality-menu" class="quality-menu" hidden>
+          <label for="quality-select">Görüntü kalitesi</label>
+          <select id="quality-select">
+            <option value="low">Düşük</option>
+            <option value="medium" selected>Orta</option>
+            <option value="high">Yüksek</option>
+          </select>
+          <small id="quality-hint">Yumuşak gölgeler ve dengeli çözünürlük</small>
+        </div>
+      </aside>
       <button id="wave-toggle" class="wave-toggle" type="button" aria-pressed="true">Su dalgaları: açık</button>
       <div id="scene-error" class="error-card" hidden></div>
     </main>
