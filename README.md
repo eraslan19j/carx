@@ -1,6 +1,6 @@
 # Küçük Dünya
 
-Sıcak, stilize bir 3B keşif ve fotoğraf macerası için prosedürel ada sahnesi. Bu ilk dilimde yaklaşık 200 × 200 metrelik, yumuşak noise tabanlı tepeler ve vadilerden oluşan bir ada; çevresinde animasyonlu, yarı saydam su; otomatik dönen kamera ve ileride yürüyüş karakterinin kullanacağı yükseklik alanı çarpışma sorgusu bulunur.
+Sıcak, stilize bir 3B keşif ve fotoğraf macerası için prosedürel ada sahnesi. Yaklaşık 200 × 200 metrelik yumuşak tepeler ve vadiler; bulutlu, renk değiştiren stilize gökyüzü; yaklaşık 10 dakikada gün doğumundan geceye geçen ışık ve renkli sis; toon/boyalı arazi; yumuşak gölgeler ve Düşük/Orta/Yüksek görüntü kalitesi ayarları bulunur. Otomatik kamera ve gelecekteki yürüyüş karakteri için yükseklik alanı çarpışma sorgusu da korunur.
 
 ## Çalıştırma
 
@@ -21,9 +21,11 @@ APK hata ayıklama imzalıdır. Telefonda bağlantıya dokunup indir; indirme ta
 
 ## Teknik notlar
 
-- Arazi ve su tamamen kodla üretilir; dış model, doku veya font kullanılmaz.
-- `src/terrain.ts` sabit tohumlu fraktal noise ile üçgen arazi üretir.
+- Arazi, bulutlar, toon ışık rampası ve su kodla üretilir; dış model, doku veya font kullanılmaz.
+- `src/sky.ts` gökyüzü/bulutları; `src/terrain.ts` sabit tohumlu fraktal araziyi üretir.
+- Gün döngüsü 600 saniyedir. Renkli sis, güneş/ortam ışığı ve su renkleri günün evresine göre yumuşakça değişir.
+- Düşük kalite gölgeleri kapatır ve su geometrisini azaltır; Orta/Yüksek yumuşak gölgeler kullanır. Seçim cihazda hatırlanır.
 - `src/collision.ts` gelecekteki karakter için `sampleGround(x, z)` yükseklik/normal/yürünebilirlik sorgusu sağlar.
-- Su dalgaları ekrandaki düğmeden kapatılabilir. Arazi statik tampon geometridir; gölgeler ve ağır son işleme kapalıdır.
+- Su dalgaları ekrandaki düğmeden kapatılabilir; ağır son işleme kullanılmaz.
 
-Telefon testi için: adanın tamamı dönerek görünmeli; sahilde açık renkli sığlık, içeride yumuşak tepeler ve vadiler seçilmeli; dalga düğmesi suyu durdurup başlatmalı.
+Telefon testi için: ada dönerek görünmeli; gökyüzündeki bulutlar akmalı, ışık yaklaşık 10 dakikada gün doğumu/öğle/gün batımı/gece renklerine geçmeli; Düşük/Orta/Yüksek ayarları görüntü kalitesi ve gölgeleri değiştirmeli; dalga düğmesi suyu durdurup başlatmalı.
