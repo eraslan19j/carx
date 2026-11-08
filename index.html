@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#b8eadc" />
+    <meta name="description" content="Küçük Dünya — prosedürel tepeleri ve yumuşak dalgalı deniziyle minik bir adayı keşfet." />
+    <title>Küçük Dünya — Ada</title>
+  </head>
+  <body>
+    <main id="app" aria-label="Küçük Dünya ada sahnesi">
+      <canvas id="world" aria-label="Prosedürel ada ve su yüzeyi"></canvas>
+      <header class="brand-card">
+        <span class="eyebrow">KEŞİF DEFTERİ · 01</span>
+        <h1>Küçük <i>Dünya</i></h1>
+        <p>Rüzgârın, suyun ve yeşil tepelerin arasında küçük bir mola.</p>
+      </header>
+      <section class="island-card" aria-live="polite">
+        <span class="status-dot"></span>
+        <div><b id="scene-status">Ada sahnesi hazırlanıyor</b><small>Prosedürel arazi · yürüyüş yüzeyi hazır</small></div>
+      </section>
+      <button id="wave-toggle" class="wave-toggle" type="button" aria-pressed="true">Su dalgaları: açık</button>
+      <div id="scene-error" class="error-card" hidden></div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
