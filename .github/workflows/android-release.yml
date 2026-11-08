@@ -1,0 +1,64 @@
+name: Küçük Dünya APK & Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-latest-release
+  cancel-in-progress: false
+
+jobs:
+  android-debug-apk:
+    name: Android debug APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kaynak kodu al
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Java kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Web bağımlılıklarını kur ve derle
+        run: npm ci && npm run build
+
+      - name: Capacitor Android projesini eşitle
+        run: npx cap sync android
+
+      - name: Debug APK üret
+        run: cd android && ./gradlew --no-daemon assembleDebug
+
+      - name: APK'yı sabit ada taşı
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk kucuk-dunya-debug.apk
+
+      - name: latest etiketini güncelle ve Release APK'sını değiştir
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: |
+          git tag -f latest "$GITHUB_SHA"
+          git push origin refs/tags/latest --force
+          if gh release view latest >/dev/null 2>&1; then
+            gh release upload latest kucuk-dunya-debug.apk --clobber
+            gh release edit latest --title "Küçük Dünya — son Android APK" --notes "Her main güncellemesinde yenilenen Android debug APK: kucuk-dunya-debug.apk"
+          else
+            gh release create latest kucuk-dunya-debug.apk \
+              --title "Küçük Dünya — son Android APK" \
+              --notes "Her main güncellemesinde yenilenen Android debug APK: kucuk-dunya-debug.apk"
+          fi
